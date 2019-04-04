@@ -55,4 +55,31 @@ public class SpiderChromosome {
 		return chrom;
 	}
 	
+	private void setChrom(SpiderGene[] input) {
+		chrom = input;
+	}
+	
+	private SpiderGene[] getChrom() {
+		return chrom;
+	}
+	
+	public SpiderChromosome crossedWith_Between_And_(SpiderChromosome p2, int r1, int r2) {
+		SpiderGene[] p2Chrom = p2.getChrom();
+		int l = chrom.length;
+		
+		SpiderGene[] child = new SpiderGene[l];
+		for (int i = 0; i < r1; i++) {
+			child[i] = chrom[i];
+		}
+		for (int i = r1; i < r2; i++) {
+			child[i] = p2Chrom[i];
+		}
+		for (int i = r2; i < l; i++) {
+			child[i] = chrom[i];
+		}
+		
+		chrom = child;
+		return this;
+	}
+	
 }
