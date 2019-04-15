@@ -21,8 +21,8 @@ public class SpiderChromosome {
 		score = 0;
 	}
 	
-	public void setScore(long in) {
-		score = in;
+	public void setScore(double d) {
+		score = d;
 	}
 	
 	public double getScore() {
@@ -95,11 +95,6 @@ public class SpiderChromosome {
 		childChrom[location + (n * direction)] = childChrom[location];
 		childChrom[location] = temp;
 		return new SpiderChromosome(childChrom);
-	}
-	
-	@Override
-	public Object clone() throws CloneNotSupportedException{
-		return super.clone();
 	}
 	
 }

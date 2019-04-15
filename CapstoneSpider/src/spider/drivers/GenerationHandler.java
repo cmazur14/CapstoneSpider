@@ -10,27 +10,34 @@ import spider.genomic.SpiderProducer;
 public class GenerationHandler {
 
 	private ArrayList<SpiderChromosome> in;
-	private ArrayList<SpiderChromosome> out;
 	private Random rng;
 	private SpiderProducer producer;
 	
 	public GenerationHandler(ArrayList<SpiderChromosome> input, Random rng) {
 		in = input;
-		out = new ArrayList<>();
 		this.rng = rng;
 		producer = new SpiderProducer();
 	}
 	
+	public GenerationHandler(Random rng) {
+		producer = new SpiderProducer();
+		this.rng = rng;
+	}
+
+	public void setParentGeneration(ArrayList<SpiderChromosome> input) {
+		in = input;
+	}
+	
 	public ArrayList<SpiderChromosome> getTopN(int n) {
 		ArrayList<SpiderChromosome> output = new ArrayList<>();
-		out.sort(new Comparator<SpiderChromosome>() {
+		in.sort(new Comparator<SpiderChromosome>() {
 			@Override
 			public int compare(SpiderChromosome o1, SpiderChromosome o2) {
 				return (int) (o1.getScore() - o2.getScore());
 			}
 		});
 		for (int i = 0; i < n; i++) {
-			output.add(out.get(output.size() - i));
+			output.add(in.get(output.size() - i));
 		}
 		return output;
 	}
@@ -43,6 +50,14 @@ public class GenerationHandler {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public ArrayList<SpiderChromosome> generateInitialGeneration() {
+		ArrayList<SpiderChromosome> output = new ArrayList<>();
+		for (int i = 0; i < 64; i++) {
+			output.add(new SpiderChromosome(1));
+		}
+		return output;
 	}
 	
 }

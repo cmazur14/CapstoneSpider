@@ -31,8 +31,8 @@ public class SpiderProducer {
 		return newGeneration;
 	}
 	
-	public SpiderChromosome getChild(SpiderChromosome p1, SpiderChromosome p2, Random rng) throws CloneNotSupportedException {
-		SpiderChromosome child = (SpiderChromosome) p1.clone();
+	private SpiderChromosome getChild(SpiderChromosome p1, SpiderChromosome p2, Random rng) throws CloneNotSupportedException {
+		SpiderChromosome child = new SpiderChromosome(p1.getChromosome());
 		if (rng.nextDouble() <= POINT_MUTATION_PROBABILITY) {
 			child = child.pointMutateAt(rng.nextInt(1000));
 		}
@@ -40,7 +40,7 @@ public class SpiderProducer {
 			int val = 1;
 			if (rng.nextDouble() <= 0.50)
 				val = -1;
-			child = child.shiftNSpotsAtLocation(rng.nextInt(4), rng.nextInt(1000), val);
+			child = child.shiftNSpotsAtLocation(rng.nextInt(4), 4 + rng.nextInt(992), val);
 		}
 		if (rng.nextDouble() <= CROSSOVER_PROBABILITY) {
 			int r1, r2;

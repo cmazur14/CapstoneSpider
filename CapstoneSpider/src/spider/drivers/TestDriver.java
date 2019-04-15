@@ -5,7 +5,7 @@ import spider.physical.SpiderRobot;
 
 public class TestDriver {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		SpiderRobot bot;
 		SpiderChromosome chrom;
@@ -21,6 +21,6 @@ public class TestDriver {
 		}
 		System.out.println("On average, bots in this generation move " + (avgDist / 64) + " meters over 1000 timesteps");
 		System.out.println("Execution time for single generation: " + ((double) (System.currentTimeMillis() - start) / 1000) + " seconds");
-	}
+	} */
 
 }

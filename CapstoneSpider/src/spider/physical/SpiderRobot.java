@@ -166,20 +166,19 @@ public class SpiderRobot {
 		return output + "\n";
 	}
 	
-	public int getAngleScoreModifier() {
+	public double getAngleScoreModifier() {
 		return legAngleScoreModifier;
 	}
 
 	public double getCurrDist() {
-		return Math.sqrt(lMotion.getX() * lMotion.getX() + lMotion.getY() + lMotion.getY());
+		return Math.sqrt(lMotion.getX() * lMotion.getX() + lMotion.getY() * lMotion.getY());
 	}
 
-	public int getScore() {
-		// TODO Auto-generated method stub
-		return 0;
+	public double getScore() {
+		return Math.sqrt(lMotion.getX() * lMotion.getX() + lMotion.getY() * lMotion.getY()) - balanceError - 0.0001 * legAngleScoreModifier;
 	}
 
-	public int getBalanceError() {
+	public double getBalanceError() {
 		return balanceError;
 	}
 }

@@ -15,10 +15,14 @@ public class BotHandler {
 		bot = new SpiderRobot();
 	}
 	
-	public int makeRun(SpiderChromosome chrom) {
+	public double makeRun(SpiderChromosome chrom) {
 		for (int i = 0; i < 1000; i++) {
 			bot.makeMove(chrom.getGene(i));
 		}
+		return bot.getScore();
+	}
+	
+	public double getCurrBotScore() {
 		return bot.getScore();
 	}
 	
