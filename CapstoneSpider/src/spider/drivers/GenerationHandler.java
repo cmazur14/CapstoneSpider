@@ -36,7 +36,13 @@ public class GenerationHandler {
 	}
 	
 	public ArrayList<SpiderChromosome> generateGeneration(ArrayList<SpiderChromosome> input) {
-		return producer.getNextGeneration(input, rng);
+		try {
+			return producer.getNextGeneration(input, rng);
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 }

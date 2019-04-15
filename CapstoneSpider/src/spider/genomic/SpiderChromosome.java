@@ -16,6 +16,11 @@ public class SpiderChromosome {
 		score = 0;
 	}
 	
+	public SpiderChromosome(SpiderGene[] childChrom) {
+		chrom = childChrom;
+		score = 0;
+	}
+	
 	public void setScore(long in) {
 		score = in;
 	}
@@ -29,6 +34,7 @@ public class SpiderChromosome {
 		for (int i = 0; i < 1000; i++) {
 			chrom[i] = new SpiderGene(val);
 		}
+		score = 0;
 	}
 	
 	public SpiderChromosome(int val, int scale) {
@@ -36,15 +42,11 @@ public class SpiderChromosome {
 		for (int i = 0; i < 1000; i++) {
 			chrom[i] = new SpiderGene(val, scale);
 		}
+		score = 0;
 	}
 	
 	public SpiderChromosome(SpiderChromosome src) {
 		chrom = src.getChromosome();
-	}
-	
-	public SpiderChromosome(ArrayList<SpiderChromosome> input, Random rng) {
-		//TODO
-		chrom = input.get(0).getChromosome();
 	}
 
 	public SpiderGene getGene(int index) {
@@ -78,8 +80,26 @@ public class SpiderChromosome {
 			child[i] = chrom[i];
 		}
 		
-		chrom = child;
-		return this;
+		return new SpiderChromosome(child);
+	}
+	
+	public SpiderChromosome pointMutateAt(int n) {
+		SpiderGene[] childChrom = chrom.clone();
+		childChrom[n] = new SpiderGene();
+		return new SpiderChromosome(childChrom);
+	}
+	
+	public SpiderChromosome shiftNSpotsAtLocation(int n, int location, int direction) {
+		SpiderGene[] childChrom = chrom.clone();
+		SpiderGene temp = childChrom[location + (n * direction)];
+		childChrom[location + (n * direction)] = childChrom[location];
+		childChrom[location] = temp;
+		return new SpiderChromosome(childChrom);
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException{
+		return super.clone();
 	}
 	
 }
