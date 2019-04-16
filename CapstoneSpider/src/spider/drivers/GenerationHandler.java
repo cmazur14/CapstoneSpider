@@ -33,7 +33,7 @@ public class GenerationHandler {
 		in.sort(new Comparator<SpiderChromosome>() {
 			@Override
 			public int compare(SpiderChromosome o1, SpiderChromosome o2) {
-				return (int) (o1.getScore() - o2.getScore());
+				return (int) (o2.getScore() - o1.getScore());
 			}
 		});
 		for (int i = 0; i < n; i++) {
@@ -55,7 +55,7 @@ public class GenerationHandler {
 	public ArrayList<SpiderChromosome> generateInitialGeneration() {
 		ArrayList<SpiderChromosome> output = new ArrayList<>();
 		for (int i = 0; i < 64; i++) {
-			output.add(new SpiderChromosome(1));
+			output.add(new SpiderChromosome(1, 1, rng));
 		}
 		return output;
 	}

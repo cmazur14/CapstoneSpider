@@ -31,6 +31,13 @@ public class SpiderGene implements Cloneable {
 			moves[i] = rng.nextInt(2 * val) - val;
 		}
 	}
+	
+	public SpiderGene(int val, int scale, Random rng) {
+		moves = new int[24];
+		for (int i = 0; i < 24; i++) {
+			moves[i] = rng.nextInt(2 * val) - val;
+		}
+	}
 
 	public void setMove(int index, int value) {
 		moves[index] = value;

@@ -11,6 +11,10 @@ public class BotHandler {
 		bot = new SpiderRobot();
 	}
 	
+	public SpiderRobot getBot() {
+		return bot;
+	}
+	
 	public void reInitBot() {
 		bot = new SpiderRobot();
 	}

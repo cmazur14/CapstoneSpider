@@ -45,6 +45,14 @@ public class SpiderChromosome {
 		score = 0;
 	}
 	
+	public SpiderChromosome(int val, int scale, Random rng) {
+		chrom = new SpiderGene[1000];
+		for (int i = 0; i < 1000; i++) {
+			chrom[i] = new SpiderGene(val, scale, rng);
+		}
+		score = 0;
+	}
+	
 	public SpiderChromosome(SpiderChromosome src) {
 		chrom = src.getChromosome();
 	}

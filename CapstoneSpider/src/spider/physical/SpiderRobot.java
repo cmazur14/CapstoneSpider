@@ -174,8 +174,8 @@ public class SpiderRobot {
 		return Math.sqrt(lMotion.getX() * lMotion.getX() + lMotion.getY() * lMotion.getY());
 	}
 
-	public double getScore() {
-		return Math.sqrt(lMotion.getX() * lMotion.getX() + lMotion.getY() * lMotion.getY()) - balanceError - 0.0001 * legAngleScoreModifier;
+	public int getScore() {
+		return (int) (100.0 * Math.sqrt(lMotion.getX() * lMotion.getX() + lMotion.getY() * lMotion.getY()));
 	}
 
 	public double getBalanceError() {
