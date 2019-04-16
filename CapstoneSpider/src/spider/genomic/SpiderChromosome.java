@@ -1,12 +1,12 @@
 package spider.genomic;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-public class SpiderChromosome {
+public class SpiderChromosome implements Comparable<SpiderChromosome>, Cloneable {
 
 	private SpiderGene[] chrom;
 	private double score;
+	private double distanceMoved;
 	
 	public SpiderChromosome() {
 		chrom = new SpiderGene[1000];
@@ -105,4 +105,35 @@ public class SpiderChromosome {
 		return new SpiderChromosome(childChrom);
 	}
 	
+	@Override
+	public String toString() {
+		return "SpiderChromosome<score: "+getScore()+">";
+	}
+	
+	@Override
+	public int compareTo(SpiderChromosome other) {
+		return getScore() > other.getScore() ? -1 : (getScore() < other.getScore() ? 1 : 0);
+	}
+
+	public void setDistanceMoved(double distanceMoved) {
+		this.distanceMoved= distanceMoved;
+	}
+	
+	public double getDistanceMoved() {
+		return distanceMoved;
+	}
+	
+	@Override
+	public Object clone() {
+		try {
+			SpiderChromosome result = (SpiderChromosome) super.clone();
+			result.chrom = chrom.clone();
+			return result;
+		} catch (CloneNotSupportedException ex) {
+			System.out.println("Internal error");
+			ex.printStackTrace();
+			System.exit(1);
+		}
+		return null;
+	}
 }

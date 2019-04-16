@@ -20,8 +20,8 @@ public class SpiderRobot {
 	private static final double femurLength = 0.03;
 	private static final double tibiaLength = 0.045;
 	private static final double defaultHipAngle = 0.0;
-	private static final double defaultKneeAngle = 0.95;
-	private static final double defaultAnkleAngle = 4.0;
+	private static final double defaultKneeAngle = 0.95;// places foot 2cm below knee
+	private static final double defaultAnkleAngle = 4.0; // places foot 2cm below knee
 	private static final double hipMax = defaultHipAngle + Math.PI / 2;
 	private static final double hipMin = defaultHipAngle - Math.PI / 2;
 	private static final double kneeMax = defaultKneeAngle + Math.PI / 2;
@@ -86,7 +86,7 @@ public class SpiderRobot {
 				newAnkleAngle = leg.getAnkleAngle();
 			}
 			i++;
-			leg.move(newHipAngle, newKneeAngle, newAnkleAngle);
+			leg.move(newHipAngle-leg.getHipAngle(), newKneeAngle-leg.getKneeAngle(), newAnkleAngle-leg.getAnkleAngle());
 		}
 		determineStageMovement();
 	}
@@ -174,8 +174,8 @@ public class SpiderRobot {
 		return Math.sqrt(lMotion.getX() * lMotion.getX() + lMotion.getY() * lMotion.getY());
 	}
 
-	public int getScore() {
-		return (int) (100.0 * Math.sqrt(lMotion.getX() * lMotion.getX() + lMotion.getY() * lMotion.getY()));
+	public double getScore() {
+		return 100.0 * Math.sqrt(lMotion.getX() * lMotion.getX() + lMotion.getY() * lMotion.getY());
 	}
 
 	public double getBalanceError() {

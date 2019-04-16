@@ -36,4 +36,8 @@ public class BotHandler {
 		}
 	}
 
+	public double getDistanceMoved() {
+		return bot.getCurrDist();
+	}
+
 }

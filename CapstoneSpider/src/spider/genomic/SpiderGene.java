@@ -18,6 +18,7 @@ public class SpiderGene implements Cloneable {
 		for (int i = 0; i < 24; i++) {
 			moves[i] = val;
 		}
+		throw new RuntimeException("Should not be called");
 	}
 	
 	public SpiderGene(SpiderGene src) {
@@ -28,14 +29,15 @@ public class SpiderGene implements Cloneable {
 		Random rng = new Random();
 		moves = new int[24];
 		for (int i = 0; i < 24; i++) {
-			moves[i] = rng.nextInt(2 * val) - val;
+			moves[i] = rng.nextInt(2 * val+ 1) - val;
 		}
+		throw new RuntimeException("Should not be here");
 	}
 	
 	public SpiderGene(int val, int scale, Random rng) {
 		moves = new int[24];
 		for (int i = 0; i < 24; i++) {
-			moves[i] = rng.nextInt(2 * val) - val;
+			moves[i] = rng.nextInt(2 * val+1) - val;
 		}
 	}
 
