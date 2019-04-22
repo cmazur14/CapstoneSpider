@@ -37,6 +37,13 @@ public class SpiderRobot {
 	private Vector3d lHat;
 	private Vector3d lMotion;
 	private ArrayList<SpiderLeg> legs;
+	private int oldIndex;
+	private int vibrationCounter;
+	private Vector3d oldLocation;
+	private int oldIndexA;
+	private int oldIndexB;
+	private int oldIndexC;
+	private int draggingJointCounter;
 	
 	public SpiderRobot() {
 		legs = new ArrayList<SpiderLeg>();
@@ -47,6 +54,10 @@ public class SpiderRobot {
 		legAngleScoreModifier = 0;
 		balanceError = 0;
 		initLegs();
+		oldIndex = 3;
+		vibrationCounter = 0;
+		oldIndexA = oldIndexB = oldIndexC = -1;
+		draggingJointCounter = 0;
 	}
 	
 	private void initLegs() {
@@ -95,6 +106,8 @@ public class SpiderRobot {
 		ArrayList<LegMovement> movements = new ArrayList<>();
 		for (SpiderLeg leg : legs) {
 			movements.add(leg.getLowestMovement());
+			if (leg.getCurrIndex() != 3)
+				draggingJointCounter++;
 		}
 		movements.sort(new Comparator<LegMovement>() {
 			public int compare(LegMovement o1, LegMovement o2) {
@@ -121,12 +134,22 @@ public class SpiderRobot {
 		if (indexA == -1 || indexB == -1 || indexC == -1) {
 			balanceError++;
 		} else {
-		Vector3d tempVec = new Vector3d();
-		tempVec.add(new Vector3d(movements.get(indexA).getMove().getX(), movements.get(indexA).getMove().getY(), 0));
-		tempVec.add(new Vector3d(movements.get(indexB).getMove().getX(), movements.get(indexB).getMove().getY(), 0));
-		tempVec.add(new Vector3d(movements.get(indexC).getMove().getX(), movements.get(indexC).getMove().getY(), 0));
-		tempVec.scale(0.333333333333333);
-		lMotion.add(tempVec);
+			if (oldIndexA != indexA)
+				vibrationCounter++;
+			if (oldIndexB != indexB)
+				vibrationCounter++;
+			if (oldIndexC != indexC)
+				vibrationCounter++;
+			oldIndexA = indexA;
+			oldIndexB = indexB;
+			oldIndexC = indexC;
+			Vector3d tempVec = new Vector3d();
+			tempVec.add(new Vector3d(movements.get(indexA).getMove().getX(), movements.get(indexA).getMove().getY(), 0));
+			tempVec.add(new Vector3d(movements.get(indexB).getMove().getX(), movements.get(indexB).getMove().getY(), 0));
+			tempVec.add(new Vector3d(movements.get(indexC).getMove().getX(), movements.get(indexC).getMove().getY(), 0));
+			tempVec.scale(0.333333333333333);
+			oldLocation = new Vector3d(lMotion);
+			lMotion.add(tempVec);
 		}
 	}
 	
@@ -158,12 +181,13 @@ public class SpiderRobot {
 		int n = 0;
 		for (SpiderLeg leg : legs) {
 			output = output + leg.toString();
-			if (n < 7)
-				output = output + ", ";
+			output = output + ", ";
 			n++;
 		}
-		
-		return output + "\n";
+		output = output + oldLocation.getX() + ", " + 
+						  oldLocation.getY() + ", " + 
+						  oldLocation.getZ();
+		return output;
 	}
 	
 	public double getAngleScoreModifier() {
@@ -175,7 +199,11 @@ public class SpiderRobot {
 	}
 
 	public double getScore() {
-		return 100.0 * Math.sqrt(lMotion.getX() * lMotion.getX() + lMotion.getY() * lMotion.getY());
+		return  100 * Math.sqrt(lMotion.getX() * lMotion.getX() + lMotion.getY() * lMotion.getY())
+				- (0.001 * legAngleScoreModifier)
+				- balanceError
+				- (0.01 * vibrationCounter)
+				- (0.1 * draggingJointCounter);
 	}
 
 	public double getBalanceError() {

@@ -1,9 +1,14 @@
 package spider.genomic;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class SpiderChromosome implements Comparable<SpiderChromosome>, Cloneable {
+public class SpiderChromosome implements Comparable<SpiderChromosome>, Cloneable, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2780440614433839379L;
 	private SpiderGene[] chrom;
 	private double score;
 	private double distanceMoved;
@@ -73,7 +78,7 @@ public class SpiderChromosome implements Comparable<SpiderChromosome>, Cloneable
 		return chrom;
 	}
 	
-	public SpiderChromosome crossedWith_Between_And_(SpiderChromosome p2, int r1, int r2) {
+	public SpiderChromosome makeBabiesWith(SpiderChromosome p2, int r1, int r2) {
 		SpiderGene[] p2Chrom = p2.getChrom();
 		int l = chrom.length;
 		

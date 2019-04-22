@@ -116,6 +116,7 @@ public class SpiderLeg {
 	private Vector3d fHat;
 	private Vector3d lHat;
 	private Vector3d oHat;
+	private int currIndex;
 
 	public SpiderLeg(double br, double c, double f, double t, double thet, double hA, double kA, double aA, Vector3d x, Vector3d y, Vector3d z) {
 		bodyRadius = br;
@@ -137,6 +138,7 @@ public class SpiderLeg {
 		oldKnee = (Vector3d) knee.clone();
 		oldAnkle= (Vector3d) ankle.clone();
 		oldFoot = (Vector3d) foot.clone();
+		currIndex = 3;
 	}
 	
 	public void move(double dHip, double dKnee, double dAnkle) {
@@ -162,9 +164,6 @@ public class SpiderLeg {
 	private void calculateJointLocations() {
 		double actualHipAngle = theta + hipAngle;
 		double actualAnkleAngle = kneeAngle + ankleAngle;
-		
-		
-		
 		
 		//Calculates r1 = fHat * cos(theta) * bodyRadius + lHat * -sin(theta) * bodyRadius
 		//temp1 = left half of sum
@@ -386,19 +385,30 @@ public class SpiderLeg {
 	public void setKneeAngle(double a) {
 		kneeAngle = a;
 	}
+	
+	public int getCurrIndex() {
+		return currIndex;
+	}
 
 	public LegMovement getLowestMovement() {
 		double min = hip.getZ();
 		double num = knee.getZ();
 		LegMovement currMovement = new LegMovement(hip, oldHip);
-		if (num < min) 
+		currIndex = 0;
+		if (num < min) {
 			currMovement = new LegMovement(knee, oldKnee);
+			currIndex = 1;
+		}
 		num = ankle.getZ();
-		if (num < min) 
+		if (num < min) {
 			currMovement = new LegMovement(ankle, oldAnkle);
+			currIndex = 2;
+		}
 		num = foot.getZ(); 
-		if (num < min) 
+		if (num < min) {
 			currMovement = new LegMovement(foot, oldFoot);
+			currIndex = 3;
+		}
 		return currMovement;
 	}
 	

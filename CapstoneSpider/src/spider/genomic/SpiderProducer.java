@@ -7,9 +7,9 @@ import java.util.Random;
 public class SpiderProducer {
 	
 	private static final int populationSize = 64;
-	private static final double POINT_MUTATION_PROBABILITY = 0.1;
-	private static final double SHIFT_MUTATION_PROBABILITY = 0.1;
-	private static final double CROSSOVER_PROBABILITY = 0.25;
+	private static final double POINT_MUTATION_PROBABILITY = 0.2;
+	private static final double SHIFT_MUTATION_PROBABILITY = 0.2;
+	private static final double CROSSOVER_PROBABILITY = 0.4;
 	
 
 	public SpiderProducer() {
@@ -51,7 +51,7 @@ public class SpiderProducer {
 			int r1 = rng.nextInt(1000);
 			int r2 = r1 + rng.nextInt(1000 - r1);
 			//System.out.println("Crossover occurred");
-			return p1.crossedWith_Between_And_(p2, r1, r2);
+			return p1.makeBabiesWith(p2, r1, r2);
 		}
 		
 		return (SpiderChromosome) p1.clone();
