@@ -37,7 +37,6 @@ public class SpiderRobot {
 	private Vector3d lHat;
 	private Vector3d lMotion;
 	private ArrayList<SpiderLeg> legs;
-	private int oldIndex;
 	private int vibrationCounter;
 	private Vector3d oldLocation;
 	private int oldIndexA;
@@ -54,7 +53,6 @@ public class SpiderRobot {
 		legAngleScoreModifier = 0;
 		balanceError = 0;
 		initLegs();
-		oldIndex = 3;
 		vibrationCounter = 0;
 		oldIndexA = oldIndexB = oldIndexC = -1;
 		draggingJointCounter = 0;
@@ -178,11 +176,9 @@ public class SpiderRobot {
 	@Override
 	public String toString() {
 		String output = "";
-		int n = 0;
 		for (SpiderLeg leg : legs) {
 			output = output + leg.toString();
 			output = output + ", ";
-			n++;
 		}
 		output = output + oldLocation.getX() + ", " + 
 						  oldLocation.getY() + ", " + 

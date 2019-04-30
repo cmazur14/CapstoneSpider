@@ -1,8 +1,5 @@
 package spider.drivers;
 
-import spider.genomic.SpiderChromosome;
-import spider.physical.SpiderRobot;
-
 public class LegHandler {
 
 	/*

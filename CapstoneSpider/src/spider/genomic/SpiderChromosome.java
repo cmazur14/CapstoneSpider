@@ -70,10 +70,6 @@ public class SpiderChromosome implements Comparable<SpiderChromosome>, Cloneable
 		return chrom;
 	}
 	
-	private void setChrom(SpiderGene[] input) {
-		chrom = input;
-	}
-	
 	private SpiderGene[] getChrom() {
 		return chrom;
 	}

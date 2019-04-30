@@ -30,9 +30,6 @@ public class GeneticAlgorithmDriver {
 		GenerationHandler generator = new GenerationHandler(new Random(RANDOM_SEED));
 		long startTime = System.nanoTime();
 		List<SpiderChromosome> currentGeneration = generator.generateInitialGeneration();
-		int j = 0;
-		String output;
-		
 		for (int i = 1; i <= n; i++) {
 			//System.out.println("Starting generation " + (i+1));
 			for (SpiderChromosome chrom : currentGeneration) {
@@ -62,9 +59,6 @@ public class GeneticAlgorithmDriver {
 			generator.setParentGeneration(currentGeneration);
 			List<SpiderChromosome> temp = generator.getTopN(16);
 			currentGeneration = generator.generateGeneration(temp);
-			//System.out.println("TOP score is currently: " + temp.get(15).getScore());
-			//System.out.println("LOW score is currently: " + temp.get(0).getScore());
-			j++;
 		}
 		System.out.printf("Generation %d moved: %6.1f centimeters   score: %8.1f\n",
 				NUM_GENS,
